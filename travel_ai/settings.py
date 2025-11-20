@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'travel_app',
     'tailwind',
     'theme',
-    
+    'django_browser_reload',
     "crispy_forms",
     "crispy_bootstrap5",
 ]
@@ -53,7 +53,7 @@ TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH=r'D:/Program Files/nodejs/npm.cmd'
 
 MIDDLEWARE = [
-    
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
