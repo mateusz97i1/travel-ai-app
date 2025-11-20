@@ -1,0 +1,13 @@
+<div id="footer-content " class="w-5/6">
+    {{ rendered_result_html|safe }}
+</div>
+
+<form method="POST" id="save-plan-form" class="flex flex-col">
+    {% csrf_token %}
+    <input type="hidden" name="rendered_result_html" id="rendered-result-html" value="{{ rendered_result_html|escape }}">
+    <div id="save-plan-container" class="flex flex-col self-center w-full mt-6">
+        <button type="submit" name="save_pdf" value="1" class="self-center px-4 py-2 font-bold text-white bg-blue-700 border shadow-lg rounded-2xl border-white/20 hover:bg-blue-600 ">
+           Save Your plan  ⤓
+        </button>
+    </div>
+</form>
