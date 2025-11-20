@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-15y-#h8bp61hmbbb9_do)4rt0-$ligg794z1jnkp@e^%(td^#n
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["https://ai-app-german-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://travel-ai-app-production.up.railway.app"]
 
 # Application definition
 
