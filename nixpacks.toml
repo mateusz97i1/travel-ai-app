@@ -1,23 +1,27 @@
+# nixpacks.toml
 [build]
 plan = "python_3_10"
 
 [phases.install]
 commands = [
+    # Tworzymy virtualenv
     "python3 -m venv /opt/venv",
-    ". /opt/venv/bin/activate",
-    "pip install --upgrade pip",
-    "pip install -r requirements.txt"
+    # Aktualizacja pip
+    "/opt/venv/bin/pip install --upgrade pip",
+    # Instalacja zależności
+    "/opt/venv/bin/pip install -r requirements.txt"
 ]
 
 [phases.build]
 commands = [
-    ". /opt/venv/bin/activate",
-    "python manage.py migrate",
-    "python manage.py collectstatic --noinput"
+    # Migracje bazy
+    "/opt/venv/bin/python manage.py migrate",
+    # Zbieranie plików statycznych
+    "/opt/venv/bin/python manage.py collectstatic --noinput"
 ]
 
 [phases.start]
 commands = [
-    ". /opt/venv/bin/activate",
-    "gunicorn travel_ai.wsgi:application --bind 0.0.0.0:$PORT"
+    # Uruchomienie Gunicorna
+    "/opt/venv/bin/gunicorn travel_ai.wsgi:application --bind 0.0.0.0:$PORT"
 ]
