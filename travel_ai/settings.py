@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-15y-#h8bp61hmbbb9_do)4rt0-$ligg794z1jnkp@e^%(td^#n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["https://ai-app-german-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://travel-ai-app-production.up.railway.app"]
 
 # Application definition
 
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'travel_app',
     'tailwind',
     'theme',
-    'django_browser_reload',
+ 
     "crispy_forms",
     "crispy_bootstrap5",
 ]
@@ -50,11 +50,11 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH=r'D:/Program Files/nodejs/npm.cmd'
+
 
 MIDDLEWARE = [
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -72,6 +72,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -129,6 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles' 
 
 # During development
 STATICFILES_DIRS = [
@@ -137,6 +139,7 @@ STATICFILES_DIRS = [
 
 # In production
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
