@@ -2,26 +2,4 @@
 [build]
 plan = "python_3_10"
 
-[phases.install]
-commands = [
-    # Tworzymy virtualenv
-    "python3 -m venv /opt/venv",
-    # Aktualizacja pip
-    "/opt/venv/bin/pip install --upgrade pip",
-    # Instalacja zależności
-    "/opt/venv/bin/pip install -r requirements.txt"
-]
 
-[phases.build]
-commands = [
-    # Migracje bazy
-    "/opt/venv/bin/python manage.py migrate",
-    # Zbieranie plików statycznych
-    "/opt/venv/bin/python manage.py collectstatic --noinput"
-]
-
-[phases.start]
-commands = [
-    # Uruchomienie Gunicorna
-    "/opt/venv/bin/gunicorn travel_ai.wsgi:application --bind 0.0.0.0:$PORT"
-]
