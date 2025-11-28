@@ -71,10 +71,20 @@
 </head>
 <body class="min-h-screen font-roboto">
     
-    
+    <!-- #privacy policy banner -->
+<section id="privacy_banner" class="fixed flex flex-col items-center justify-between w-11/12 max-w-lg gap-4 p-4 text-white transform -translate-x-1/2 bg-black rounded-lg shadow-lg bottom-4 left-1/2 sm:flex-row">
+  <p class="text-sm">
+    We use cookies to improve your experience. By continuing, you agree to our 
+    <a href="{% url 'travel_app:privacy_policy' %}" class="underline">Privacy Policy</a>.
+  </p>
+  <div class="flex gap-2">
+    <button id="conscent" class="px-4 py-2 text-sm transition rounded-full bg-slate-950 hover:bg-slate-800">Consent</button>
+    <button id="decline" class="px-4 py-2 text-sm transition rounded-full bg-slate-950 hover:bg-slate-800">Decline</button>
+  </div>
+</section>
   
         
-    <header class="flex justify-between items-center px-6 text-center bg-slate-600 h-[10vh]">
+    <header class="flex justify-between items-center px-6 text-center bg-slate-600 h-[10vh] min-h-[60px] max-h-[140px] ">
         <h1 class="text-5xl font-bold text-transparent bg-gradient-to-r to-blue-400 from-indigo-500 bg-clip-text">
             <a href="{% url 'travel_app:home' %}" class="no-underline cursor-pointer text-inherit">TravelAI</a>
         </h1>
@@ -88,7 +98,9 @@
     <div id="mobile-menu" class="fixed top-0 right-0 z-50 w-full h-full transition-transform duration-500 ease-in-out transform translate-x-full bg-slate-800 bg-opacity-95 lg:w-1/3">
         <div class="flex flex-col items-center justify-center h-full space-y-8 text-white">
             <a href="{% url 'travel_app:home' %}" class="text-2xl font-semibold transition-colors duration-300 hover:text-blue-400">Home</a>
+            <a href="{% url 'travel_app:find_more' %}" class="text-2xl font-semibold transition-colors duration-300 hover:text-blue-400">Generate Plan</a>
                     <a href="{% url 'travel_app:about' %}" class="text-2xl font-semibold transition-colors duration-300 hover:text-blue-400">About</a>
+                    <a href="{% url 'travel_app:privacy_policy' %}" class="text-2xl font-semibold transition-colors duration-300 hover:text-blue-400">Privacy Policy</a>
             <a href="{% url 'travel_app:contact' %}" class="text-2xl font-semibold transition-colors duration-300 hover:text-blue-400">Contact & Support</a>
         </div>
     </div>
@@ -147,19 +159,33 @@
      {% endblock banner %}
 
 
-     <footer class="flex flex-col items-center justify-between w-full gap-4 px-6 py-6 mt-24 text-white md:flex-row bg-slate-900">
+<footer class="flex flex-col items-center justify-between w-full gap-4 px-6 py-6 text-white md:flex-row bg-slate-900">
   
   <!-- Logo & Branding -->
-  <div class="flex items-center space-x-3">
-    <img src="{% static 'images/chatgpt_logo_white.png' %}" alt="ChatGPT Logo" class="w-10 h-10 rounded-full">
-    <span class="text-lg font-semibold">Powered by ChatGPT API</span>
-  </div>
+  <div class="flex flex-col items-center space-x-3">
+    
+      <div class="flex items-center space-x-3">
 
-  <!-- Optional links or credits -->
-  <div class="text-sm text-gray-400">
-    &copy; 2025 TravelAI. All rights reserved.
-  </div>
+            <img src="{% static 'images/chatgpt_logo_white.png' %}" alt="ChatGPT Logo" class="w-10 h-10 rounded-full">
+            <span class="text-lg font-semibold">Powered by ChatGPT API</span>
 
+      </div>
+      
+      <div class="pt-4 text-sm text-gray-400 ">
+
+            &copy; 2025 TravelAI. All rights reserved.
+
+      </div>
+
+  </div>
+ <!-- Optional links or credits -->
+  <!-- Privacy Policy Link -->
+    <div class="flex flex-col text-sm text-gray-400">
+        <a href="{% url 'travel_app:about' %}" class="font-semibold transition-colors duration-300 hover:text-blue-400">About</a>
+        <a href="{% url 'travel_app:privacy_policy' %}" class="font-semibold transition-colors duration-300 hover:text-blue-400">Privacy Policy</a>
+        <a href="{% url 'travel_app:contact' %}" class="font-semibold transition-colors duration-300 hover:text-blue-400">Contact & Support</a>  
+    </div>
+ 
 </footer>
 <!-- burger menu script -->
  <script>
@@ -197,5 +223,30 @@
     <script src="{% static 'js/select_menu.js' %}"></script>
     <!-- AI "thinking" animation -->
     <script src="{% static 'js/loading_ai_effect.js' %}"></script>
+
+    <!-- concent & decline button script privact policy -->
+<script>
+    const consentButton = document.getElementById('conscent');
+    const declineButton = document.getElementById('decline');
+
+    const stored_Consent = localStorage.getItem('user_consent');
+    if (stored_Consent==='true' ) {
+        document.getElementById('privacy_banner').style.display = 'none';
+    }
+
+    consentButton.addEventListener('click', () => {
+        document.getElementById('privacy_banner').style.display = 'none';
+        localStorage.setItem('user_consent', 'true');
+    });   
+
+    declineButton.addEventListener('click', () => {
+        document.getElementById('privacy_banner').style.display = 'none';
+        localStorage.setItem('user_consent', 'false');
+        
+    });
+
+</script>
+
+
 </body>
 </html>

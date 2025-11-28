@@ -17,6 +17,20 @@
 
 
 <body class="font-roboto">
+<!-- #privacy policy banner -->
+<section id="privacy_banner" class="fixed flex flex-col items-center justify-between w-11/12 max-w-lg gap-4 p-4 text-white transform -translate-x-1/2 bg-black rounded-lg shadow-lg bottom-4 left-1/2 sm:flex-row">
+  <p class="text-sm">
+    We use cookies to improve your experience. By continuing, you agree to our 
+    <a href="{% url 'travel_app:privacy_policy' %}" class="underline">Privacy Policy</a>.
+  </p>
+  <div class="flex gap-2">
+    <button id="conscent" class="px-4 py-2 text-sm transition rounded-full bg-slate-950 hover:bg-slate-800">Consent</button>
+    <button id="decline" class="px-4 py-2 text-sm transition rounded-full bg-slate-950 hover:bg-slate-800">Decline</button>
+  </div>
+</section>
+
+
+
 
 {% block foot %}
 
@@ -31,7 +45,9 @@
 <div id="airplane_animation" class="w-32 h-32 bg-center bg-no-repeat bg-contain" style="background-image: url('{% static 'images/airplane.png' %}');"></div>
 
 </header>
-<section class="flex items-center justify-center w-full px-4 py-4 bg-slate-50">
+
+<!-- second banner -->
+<section id="first_banner" class="flex items-center justify-center w-full px-4 py-4 bg-slate-50">
   <div class="bg-white w-full xl:max-w-screen-xl 3xl:max-w-screen-2xl flex shadow-2xl rounded-xl overflow-hidden min-h-[80vh]">
     
     <!-- Left (Text) -->
@@ -48,7 +64,7 @@
         Find More
       </a>
     </div>
-    
+
     <!-- Right (Image) -->
     <div class="w-2/5 min-w-[150px] flex-shrink-0">
       <img src="{% static 'images/beach3.jpg' %}" alt="Beach" class="object-cover w-full h-full">
@@ -99,21 +115,30 @@
   
 {% endblock foot %}
 
-<footer class="flex flex-col items-center justify-between w-full gap-4 px-6 py-6 text-white md:flex-row bg-slate-900">
-  
-  <!-- Logo & Branding -->
-  <div class="flex items-center space-x-3">
-    <img src="{% static 'images/chatgpt_logo_white.png' %}" alt="ChatGPT Logo" class="w-10 h-10 rounded-full">
-    <span class="text-lg font-semibold">Powered by ChatGPT API</span>
+<footer class="flex flex-col items-center justify-center w-full gap-6 px-6 py-6 text-white bg-slate-900">
+
+  <!-- Links Section -->
+  <div class="flex flex-col items-center space-y-2 text-sm text-gray-400 md:flex-row md:space-y-0 md:space-x-6">
+    <a href="{% url 'travel_app:about' %}" class="font-semibold transition-colors duration-300 hover:text-blue-400">About</a>
+    <a href="{% url 'travel_app:privacy_policy' %}" class="font-semibold transition-colors duration-300 hover:text-blue-400">Privacy Policy</a>
+    <a href="{% url 'travel_app:contact' %}" class="font-semibold transition-colors duration-300 hover:text-blue-400">Contact & Support</a>
   </div>
 
-  <!-- Optional links or credits -->
-  <div class="text-sm text-gray-400">
-    &copy; 2025 TravelAI. All rights reserved.
+  <!-- Logo & Branding Section -->
+  <div class="flex flex-col items-center space-y-4">
+    <div class="flex items-center space-x-3">
+      <img src="{% static 'images/chatgpt_logo_white.png' %}" alt="ChatGPT Logo" class="w-10 h-10 rounded-full">
+      <span class="text-lg font-semibold">Powered by ChatGPT API</span>
+    </div>
+    <div class="text-sm text-gray-400">
+      &copy; 2025 TravelAI. All rights reserved.
+    </div>
   </div>
 
 </footer>
 
+
+<!-- #animate plane -->
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
@@ -144,5 +169,45 @@
   );
 
 </script>
+<!-- private script for privacy banner -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  let privacyTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#first_banner",
+      start: "top bottom",
+      end: "bottom top",  
+    }
+  });
+
+  privacyTl.fromTo("#privacy_banner",
+    { y: "100%", opacity: 0 },
+    { y: "0%", opacity: 1, ease: "none" }
+  );
+</script>
+<!-- concent & decline button script privact policy -->
+<script>
+    const consentButton = document.getElementById('conscent');
+    const declineButton = document.getElementById('decline');
+
+    const stored_Consent = localStorage.getItem('user_consent');
+    if (stored_Consent==='true' ) {
+        document.getElementById('privacy_banner').style.display = 'none';
+    }
+
+    consentButton.addEventListener('click', () => {
+        document.getElementById('privacy_banner').style.display = 'none';
+        localStorage.setItem('user_consent', 'true');
+    });   
+
+    declineButton.addEventListener('click', () => {
+        document.getElementById('privacy_banner').style.display = 'none';
+        localStorage.setItem('user_consent', 'false');
+        
+    });
+
+</script>
+
 </body>
 </html>
